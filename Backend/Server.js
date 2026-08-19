@@ -20,6 +20,7 @@ const corsOptions = {
     "http://localhost:5174",
     "http://localhost:3000",
     "https://portfoliobuilder-three.vercel.app",
+    "https://portfolio-builder-eight-chi.vercel.app",
     process.env.FRONTEND_URL,
     process.env.ADMIN_URL
   ].filter(Boolean),
