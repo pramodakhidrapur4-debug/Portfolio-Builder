@@ -2,32 +2,26 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const api = axios.create({
-  baseURL: `${API_URL}/api/admin`,
-});
-
 // ── Dashboard Stats ────────────────────────────────────────
-export const getStats = () => api.get("/stats");
+export const getStats = () => axios.get(`${API_URL}/api/admin/stats`);
 
 // ── Users ──────────────────────────────────────────────────
-export const getAllUsers = () => api.get("/allusers");
+export const getAllUsers = () => axios.get(`${API_URL}/api/admin/allusers`);
 
 // ── Payments ───────────────────────────────────────────────
-export const getAllPayments = () => api.get("/payments");
+export const getAllPayments = () => axios.get(`${API_URL}/api/admin/payments`);
 
 // ── Portfolios ─────────────────────────────────────────────
-export const getAllPortfolios = () => api.get("/portfolios");
+export const getAllPortfolios = () => axios.get(`${API_URL}/api/admin/portfolios`);
 
 // ── Discussions — CRUD ─────────────────────────────────────
-export const getDiscussions = () => api.get("/discussions");
-export const createDiscussion = (data) => api.post("/discussions", data);
-export const updateDiscussion = (id, data) => api.put(`/discussions/${id}`, data);
-export const deleteDiscussion = (id) => api.delete(`/discussions/${id}`);
+export const getDiscussions = () => axios.get(`${API_URL}/api/admin/discussions`);
+export const createDiscussion = (data) => axios.post(`${API_URL}/api/admin/discussions`, data);
+export const updateDiscussion = (id, data) => axios.put(`${API_URL}/api/admin/discussions/${id}`, data);
+export const deleteDiscussion = (id) => axios.delete(`${API_URL}/api/admin/discussions/${id}`);
 
 // ── Enquiries — CRUD ──────────────────────────────────────
-export const getEnquiries = () => api.get("/enquiries");
-export const createEnquiry = (data) => api.post("/enquiries", data);
-export const updateEnquiry = (id, data) => api.put(`/enquiries/${id}`, data);
-export const deleteEnquiry = (id) => api.delete(`/enquiries/${id}`);
-
-export default api;
+export const getEnquiries = () => axios.get(`${API_URL}/api/admin/enquiries`);
+export const createEnquiry = (data) => axios.post(`${API_URL}/api/admin/enquiries`, data);
+export const updateEnquiry = (id, data) => axios.put(`${API_URL}/api/admin/enquiries/${id}`, data);
+export const deleteEnquiry = (id) => axios.delete(`${API_URL}/api/admin/enquiries/${id}`);
