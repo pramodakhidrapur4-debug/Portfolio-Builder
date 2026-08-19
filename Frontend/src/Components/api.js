@@ -1,8 +1,10 @@
 import axios from 'axios'
+const API_URL = import.meta.env.VITE_API_URL || "https://portfolio-cs7i.onrender.com";
+
 const api=axios.create({
-    baseURL:"http://localhost:3000"
+    baseURL: API_URL
 })
-export const googleauth=(code)=>api.get(`/api/log/googleLog?code=${code}`)
+export const googleauth=(code)=>api.get(`${API_URL}/api/log/googleLog?code=${code}`)
 export const signin=(data)=>api.post('/api/user/signin',data)
 export const verifyOtp=(data)=>api.post('/api/user/veri',data)
 export const log=(data)=>api.post('/api/user/login',data)
