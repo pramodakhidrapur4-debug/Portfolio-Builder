@@ -1,8 +1,9 @@
 import axios from "axios";
 
-// ── Axios Instance ─────────────────────────────────────────
+const API_URL = import.meta.env.VITE_API_URL;
+
 const api = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL || "https://portfolio-cs7i.onrender.com"}/api/admin`,
+  baseURL: `${API_URL}/api/admin`,
 });
 
 // ── Dashboard Stats ────────────────────────────────────────
