@@ -1,0 +1,77 @@
+/* ── Users Page ──────────────────────────────────────────────── */
+.user-row {
+  cursor: pointer;
+}
+
+.user-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--accent-primary-muted);
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Expanded user detail row */
+.user-detail-row td {
+  padding: 0 !important;
+  background: var(--bg-tertiary);
+}
+
+.user-detail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  animation: slideDown 0.25s ease-out;
+}
+
+.user-detail__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-detail__item span {
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.user-detail__item strong {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.pagination-ellipsis {
+  border: none !important;
+  background: transparent !important;
+  color: var(--text-tertiary) !important;
+}
+
+@media (max-width: 768px) {
+  .user-detail {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

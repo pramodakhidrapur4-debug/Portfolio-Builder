@@ -1,0 +1,102 @@
+/* ── Skeleton Loaders ───────────────────────────────────────── */
+.skeleton-table {
+  padding: var(--space-md);
+}
+
+.skeleton-row {
+  display: flex;
+  gap: var(--space-md);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-secondary);
+  animation: fadeIn 0.4s ease-out both;
+}
+
+.skeleton-cell {
+  height: 14px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--bg-hover) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+  flex: 1;
+}
+
+.stat-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-lg);
+}
+
+.skeleton-card {
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  animation: fadeIn 0.4s ease-out both;
+}
+
+.skeleton-line {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--bg-hover) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+}
+
+.skeleton-line--xs { height: 10px; width: 40%; }
+.skeleton-line--sm { height: 12px; width: 55%; }
+.skeleton-line--lg { height: 28px; width: 70%; }
+
+.skeleton-block {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--bg-hover) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+}
+
+/* ── Empty State ────────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.empty-state__illustration {
+  margin-bottom: var(--space-lg);
+  opacity: 0.8;
+}
+
+.empty-state__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.empty-state__message {
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+  max-width: 360px;
+  margin-bottom: var(--space-lg);
+  line-height: 1.6;
+}

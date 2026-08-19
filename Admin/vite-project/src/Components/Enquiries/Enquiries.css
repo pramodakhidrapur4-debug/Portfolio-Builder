@@ -1,0 +1,121 @@
+/* ── Enquiries Page ──────────────────────────────────────────── */
+.enquiry-info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  margin-bottom: var(--space-lg);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.enquiry-info-icon {
+  font-size: 1.4rem;
+  color: var(--color-info);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.enquiry-info-banner strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.enquiry-info-banner span {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.enq-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.enq-contact span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+}
+
+.enq-contact-icon {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.enq-message {
+  max-width: 280px;
+}
+
+.enq-message-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.enq-expand-btn {
+  font-size: 0.75rem !important;
+  padding: 2px 6px !important;
+  margin-top: 2px;
+  color: var(--accent-primary) !important;
+}
+
+/* Action buttons */
+.enq-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.enq-action-btn {
+  font-size: 0.72rem !important;
+  padding: 4px 10px !important;
+  border-radius: var(--radius-full) !important;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.enq-action-btn--contacted {
+  background: var(--color-info-muted);
+  color: var(--color-info);
+}
+
+.enq-action-btn--contacted:hover {
+  background: var(--color-info);
+  color: #fff;
+}
+
+.enq-action-btn--pending {
+  background: var(--color-warning-muted);
+  color: var(--color-warning);
+}
+
+.enq-action-btn--pending:hover {
+  background: var(--color-warning);
+  color: #fff;
+}
+
+.enq-action-btn--completed {
+  background: var(--color-success-muted);
+  color: var(--color-success);
+}
+
+.enq-action-btn--completed:hover {
+  background: var(--color-success);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .enq-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

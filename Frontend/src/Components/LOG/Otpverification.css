@@ -1,0 +1,209 @@
+/* ================= OTP Verification Page ================= */
+.otp-page {
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 24px;
+  background: radial-gradient(circle at 50% 20%, #1a253e 0%, #0b0f19 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-family: var(--font-primary, sans-serif);
+}
+
+.otp-container {
+  width: 100%;
+  max-width: 1050px;
+  min-height: 540px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 32px;
+  overflow: hidden;
+  background: rgba(19, 27, 46, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 35px rgba(99, 102, 241, 0.2);
+}
+
+/* LEFT HERO PANEL */
+.otp-left {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+  color: #ffffff;
+  padding: 60px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.otp-left::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.otp-brand {
+  width: fit-content;
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  letter-spacing: 0.8px;
+  color: #c7d2fe;
+  text-transform: uppercase;
+}
+
+.otp-left h1 {
+  margin: 0;
+  font-size: 38px;
+  line-height: 1.2;
+  font-weight: 800;
+  font-family: var(--font-heading, sans-serif);
+  letter-spacing: -0.5px;
+}
+
+.otp-left p {
+  margin-top: 18px;
+  max-width: 380px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #cbd5e1;
+}
+
+/* RIGHT FORM PANEL */
+.otp-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 40px;
+  background: transparent;
+}
+
+.otp-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+.otp-card h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #ffffff;
+  font-weight: 800;
+  font-family: var(--font-heading, sans-serif);
+}
+
+.otp-note {
+  margin: 8px 0 28px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.otp-field {
+  margin-bottom: 24px;
+}
+
+.otp-field label {
+  display: block;
+  margin: 12px 0 6px 0;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.otp-field input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  outline: none;
+  font-size: 15px;
+  background: rgba(11, 15, 25, 0.6);
+  color: #ffffff;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+.otp-field input::placeholder {
+  color: #64748b;
+}
+
+.otp-field input:focus {
+  border-color: #6366f1;
+  background: rgba(11, 15, 25, 0.9);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+.otp-btn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+}
+
+.otp-btn:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
+}
+
+.otp-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 900px) {
+  .otp-container {
+    grid-template-columns: 1fr;
+  }
+
+  .otp-left {
+    padding: 40px 30px;
+  }
+
+  .otp-left h1 {
+    font-size: 28px;
+  }
+
+  .otp-right {
+    padding: 36px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .otp-page {
+    padding: 16px;
+  }
+
+  .otp-container {
+    border-radius: 24px;
+  }
+
+  .otp-left {
+    padding: 30px 20px;
+  }
+
+  .otp-card h2 {
+    font-size: 24px;
+  }
+}

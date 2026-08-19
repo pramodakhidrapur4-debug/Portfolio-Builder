@@ -1,0 +1,345 @@
+/* =========================================================
+   MODERN PORTFOLIO TEMPLATE - Midnight Navy + Gold Theme
+   ========================================================= */
+
+/* Loading State */
+.Modern-mode.template-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #0f172a;
+}
+
+.Modern-mode .loader-ring {
+  width: 52px;
+  height: 52px;
+  border: 4px solid rgba(251, 191, 36, 0.15);
+  border-top-color: #fbbf24;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Base */
+.Modern-mode {
+  background-color: #0f172a;
+  min-height: 100vh;
+  color: #f8fafc;
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+}
+
+/* NAV */
+.navv-modern {
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.navv-modern a {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+.navv-modern a:hover {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+}
+
+/* HERO */
+.home-page-modern {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 90px 40px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+}
+
+.home-page-modern::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 70% 40%, rgba(251,191,36,0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.short-info-modern {
+  flex: 1;
+  z-index: 1;
+}
+
+.greeting-tag-modern {
+  display: inline-block;
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: 0.4px;
+}
+
+.short-info-modern h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  letter-spacing: -1px;
+}
+
+.hero-name-modern {
+  background: linear-gradient(135deg, #fbbf24, #fde68a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+}
+
+.hero-profession-modern {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #94a3b8;
+  margin: 10px 0;
+}
+
+.hero-tagline-modern {
+  font-size: 1rem;
+  color: #64748b;
+  margin-top: 8px;
+}
+
+/* Profile Image */
+.profile-img-wrap-modern {
+  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 3px solid rgba(251, 191, 36, 0.5);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 40px rgba(251,191,36,0.25);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  z-index: 1;
+  background: #1e293b;
+}
+
+.profile-img-wrap-modern:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.7), 0 0 50px rgba(251,191,36,0.4);
+}
+
+.profile-img-modern {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.profile-img-placeholder-modern {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: 800;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.08);
+}
+
+/* SECTION HEADING */
+.he-modern {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  max-width: 1200px;
+  margin: 70px auto 28px;
+  padding: 0 40px;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.he-modern::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 28px;
+  background: linear-gradient(180deg, #fbbf24, #d97706);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* PROJECTS */
+.PA-modern {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.projects-activitys-modern {
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 32px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.projects-activitys-modern:hover {
+  border-color: rgba(251, 191, 36, 0.4);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 28px rgba(251,191,36,0.2);
+  transform: translateY(-4px);
+}
+
+.projects-activitys-modern h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fbbf24;
+  margin: 0 0 12px 0;
+  text-transform: capitalize;
+}
+
+.projects-activitys-modern p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #94a3b8;
+  margin: 0 0 20px 0;
+}
+
+.project-img-modern {
+  width: 100%;
+  max-height: 500px;
+  height: auto;
+  object-fit: contain;
+  object-position: top center;
+  display: block;
+  border-radius: 14px;
+  background: #0f172a;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+/* SKILLS & EDUCATION */
+.SE-modern {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.skill-edu-modern {
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edu-item-modern {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+.skills-wrap-modern {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.skill-chip-modern {
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.skill-chip-modern:hover {
+  background: rgba(251, 191, 36, 0.22);
+  transform: translateY(-2px);
+}
+
+/* CONTACT */
+.Contact-modern {
+  max-width: 1200px;
+  margin: 0 auto 90px;
+  padding: 0 40px;
+}
+
+.contact-text-modern {
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 32px 36px;
+  color: #fbbf24;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+  word-break: break-word;
+}
+
+.empty-state-modern {
+  color: #475569;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 48px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px dashed rgba(255,255,255,0.08);
+  border-radius: 20px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .home-page-modern {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 50px 24px 40px;
+  }
+  .short-info-modern h1 { font-size: 2.4rem; }
+  .hero-name-modern { display: inline; }
+  .profile-img-wrap-modern { width: 220px; height: 220px; border-radius: 50%; }
+  .navv-modern { gap: 18px; flex-wrap: wrap; height: auto; padding: 14px 16px; }
+  .he-modern, .PA-modern, .SE-modern, .Contact-modern { padding: 0 20px; }
+}
+@media (max-width: 480px) {
+  .short-info-modern h1 { font-size: 2rem; }
+  .hero-profession-modern { font-size: 1.15rem; }
+}

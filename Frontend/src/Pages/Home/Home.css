@@ -1,0 +1,7 @@
+/* Home Page Container */
+.home-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--bg-dark, #0b0f19);
+  min-height: 100vh;
+}

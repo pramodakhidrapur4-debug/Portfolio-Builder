@@ -1,0 +1,130 @@
+/* ==========================================================================
+   Feature Cards Section (Features.css)
+   ========================================================================== */
+
+.Features {
+  width: 100%;
+  max-width: 1280px;
+  margin: 90px auto;
+  padding: 0 32px;
+}
+
+.Features h1 {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 54px;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #ffffff 60%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Crucial Fix: Hide raw <br> tags so grid flows perfectly */
+.Features-con br {
+  display: none !important;
+}
+
+.Features-con {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  align-items: stretch;
+}
+
+/* Feature Box Glassmorphism Cards */
+.box1, .box2, .box3, .box4 {
+  background: rgba(18, 24, 39, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 36px 26px;
+  color: #cbd5e1;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Accent Glow Bar */
+.box1::before, .box2::before, .box3::before, .box4::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  opacity: 0.6;
+  transition: opacity 0.35s ease, height 0.35s ease;
+}
+
+.box1:hover, .box2:hover, .box3:hover, .box4:hover {
+  transform: translateY(-8px);
+  border-color: rgba(99, 102, 241, 0.45);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 35px rgba(99, 102, 241, 0.3);
+  background: rgba(24, 32, 51, 0.95);
+}
+
+.box1:hover::before, .box2:hover::before, .box3:hover::before, .box4:hover::before {
+  opacity: 1;
+  height: 4px;
+}
+
+/* Card Content Typography */
+.box1 b, .box2 b, .box3 b, .box4 b {
+  font-weight: 400;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #94a3b8;
+  display: block;
+  white-space: pre-line;
+}
+
+/* First line inside <b> acting as Title */
+.box1 b::first-line, .box2 b::first-line, .box3 b::first-line, .box4 b::first-line {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #ffffff;
+  line-height: 1.8;
+  font-family: var(--font-heading, sans-serif);
+}
+
+/* Responsive Grid */
+@media (max-width: 1100px) {
+  .Features-con {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .Features {
+    margin: 50px auto;
+    padding: 0 20px;
+  }
+
+  .Features h1 {
+    font-size: 1.9rem;
+    margin-bottom: 32px;
+  }
+
+  .Features-con {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .box1, .box2, .box3, .box4 {
+    padding: 26px 20px;
+  }
+}
