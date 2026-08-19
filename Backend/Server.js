@@ -14,15 +14,25 @@ const app=express();
 //middleware
 
 //middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors({
+const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "http://localhost:5174"
-  ],
-  credentials: true
-}));
+    "http://localhost:5174",
+    "http://localhost:3000",
+    "https://portfoliobuilder-three.vercel.app",
+    process.env.FRONTEND_URL,
+    process.env.ADMIN_URL
+  ].filter(Boolean),
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "token", "Accept"],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 Mongo();
 
 

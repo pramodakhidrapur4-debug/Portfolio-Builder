@@ -81,8 +81,8 @@ const Portfolios = () => {
   };
 
   const openPortfolio = (id) => {
-    // Opens the portfolio in a new tab using the frontend URL pattern
-    window.open(`http://localhost:5173/portfolio/${id}`, "_blank");
+    const frontendUrl = import.meta.env.VITE_FRONTEND_URL || "https://portfoliobuilder-three.vercel.app";
+    window.open(`${frontendUrl}/portfolio/${id}`, "_blank");
   };
 
   return (

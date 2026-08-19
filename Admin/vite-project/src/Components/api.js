@@ -2,7 +2,7 @@ import axios from "axios";
 
 // ── Axios Instance ─────────────────────────────────────────
 const api = axios.create({
-  baseURL: "http://localhost:3000/api/admin",
+  baseURL: `${import.meta.env.VITE_API_URL || "https://portfolio-cs7i.onrender.com"}/api/admin`,
 });
 
 // ── Dashboard Stats ────────────────────────────────────────
