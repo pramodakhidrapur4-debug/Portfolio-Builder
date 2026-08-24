@@ -53,7 +53,7 @@ const Modern = () => {
 
       {/* NAV */}
       <nav className="navv-modern">
-        <a href="/">Home</a>
+        <a>Home</a>
         <a href="#pa-modern">Projects &amp; Activitys</a>
         <a href="#se-modern">Skills &amp; Education</a>
         <a href="#co-modern">Contact Me</a>

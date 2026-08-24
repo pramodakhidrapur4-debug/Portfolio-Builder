@@ -53,7 +53,7 @@ const Dark = () => {
 
       {/* NAV */}
       <nav className="navv">
-        <a href="/">Home</a>
+        <a >Home</a>
         <a href="#pa">Projects &amp; Activitys</a>
         <a href="#se">Skills &amp; Education</a>
         <a href="#co">Contact Me</a>

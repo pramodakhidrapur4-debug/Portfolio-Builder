@@ -53,7 +53,7 @@ const Light = () => {
 
       {/* NAV */}
       <nav className="navv-light">
-        <a href="/">Home</a>
+        <a>Home</a>
         <a href="#pa-light">Projects &amp; Activitys</a>
         <a href="#se-light">Skills &amp; Education</a>
         <a href="#co-light">Contact Me</a>
