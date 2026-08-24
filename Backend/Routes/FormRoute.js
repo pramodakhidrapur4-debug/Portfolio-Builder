@@ -5,7 +5,7 @@ import authmid from "../Middleware/Auth.js";
 const Formin=express.Router();
 Formin.post('/fill',authmid,upload.fields([
     { name: "profileImg", maxCount: 1 },
-    { name: "projectImages", maxCount: 20 }
+    { name: "projectImages", maxCount: 10 }
 ]),FormInfo);
 Formin.get('/:id',fetdata)
 export default Formin;

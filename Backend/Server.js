@@ -44,7 +44,22 @@ app.use('/api/payment',rou)
 app.use('/api/pro',rro)
 app.use('/api/admin',roog)
 
+app.use((err, req, res, next) => {
+  console.error("GLOBAL ERROR:", err);
+  console.error("STACK:", err.stack);
 
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+    error: process.env.NODE_ENV === "production"
+      ? undefined
+      : err.stack
+  });
+});
 
 
 const port=process.env.PORT||3000;

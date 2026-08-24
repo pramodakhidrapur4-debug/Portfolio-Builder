@@ -6,8 +6,7 @@ import { PageOverlayLoader, ButtonSpinner } from '../Loader/Loader';
 
 const DarkForm = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [loadingMsg, setLoadingMsg] = useState("");
+  const [generatingTemplate, setGeneratingTemplate] = useState(null);
 
   const [Projects, setProjects] = useState([
     {
@@ -37,7 +36,9 @@ const DarkForm = () => {
     formData.append("degree", inpu.Degreename);
     formData.append("skills", inpu.Skills);
     formData.append("Contact", inpu.Contactinfo);
-    formData.append("profileImg", inpu.profileimage);
+    if (inpu.profileimage) {
+      formData.append("profileImg", inpu.profileimage);
+    }
 
     const formattedProjects = Projects.map((item) => ({
       projectName: item.Projectname,
@@ -50,6 +51,16 @@ const DarkForm = () => {
         formData.append("projectImages", item.projectimage);
       }
     });
+
+    for (const [key, value] of formData.entries()) {
+      console.log(
+        "FormData:",
+        key,
+        value instanceof File
+          ? `FILE: ${value.name}, ${value.type}, ${value.size}`
+          : value
+      );
+    }
 
     const res = await Formda(formData);
     return res;
@@ -70,12 +81,22 @@ const DarkForm = () => {
   };
 
   const handleGenerate = async (templateName) => {
+    if (generatingTemplate !== null) return; // Prevent double submission
+
     if (!inpu.Name) {
       alert("Please enter your Name");
       return;
     }
-    setLoadingMsg(`Uploading Images & Creating ${templateName} Portfolio...`);
-    setLoading(true);
+    if (!inpu.profileimage) {
+      alert("Please select a Profile Image");
+      return;
+    }
+    
+    setGeneratingTemplate(templateName);
+    
+    console.log(`Generating ${templateName} portfolio`);
+    console.log("API REQUEST STARTED FOR TEMPLATE:", templateName);
+
     try {
       const res = await Formfet(templateName);
       if (res.data && res.data.id) {
@@ -84,10 +105,13 @@ const DarkForm = () => {
         alert("Failed to create portfolio. Please try again.");
       }
     } catch (err) {
-      console.error("Portfolio creation error:", err);
+      console.error(
+        "Portfolio creation error:",
+        err.response?.data || err.message
+      );
       alert("Error generating portfolio. Please try again.");
     } finally {
-      setLoading(false);
+      setGeneratingTemplate(null);
     }
   };
 
@@ -103,7 +127,7 @@ const DarkForm = () => {
 
   return (
     <div>
-      {loading && <PageOverlayLoader message={loadingMsg} />}
+      {generatingTemplate !== null && <PageOverlayLoader message={`Uploading Images & Creating ${generatingTemplate} Portfolio...`} />}
 
       <div className="back" onClick={() => { navigate('/') }}>
         Go Back
@@ -125,6 +149,7 @@ const DarkForm = () => {
             value={inpu.Profession}
             onChange={handlechange}
             name="Profession"
+            required
           />
 
           {/* --- PROJECT INPUTS SECTION --- */}
@@ -137,6 +162,7 @@ const DarkForm = () => {
                 value={Project.Projectname}
                 onChange={(e) => projhandle(e, index)}
                 name="Projectname"
+                required
               />
               <input
                 type="text"
@@ -144,12 +170,14 @@ const DarkForm = () => {
                 value={Project.ProjectDiscription}
                 onChange={(e) => projhandle(e, index)}
                 name="ProjectDiscription"
+                required
               />
               <input
                 type="file"
                 placeholder="Project Image"
                 onChange={(e) => imageHandle(e, index)}
                 name="projectimage"
+                required
               />
             </div>
           ))}
@@ -175,6 +203,7 @@ const DarkForm = () => {
             value={inpu.CollageName}
             onChange={handlechange}
             name="CollageName"
+            required
           />
           <input
             type="text"
@@ -182,6 +211,7 @@ const DarkForm = () => {
             value={inpu.Degreename}
             onChange={handlechange}
             name="Degreename"
+            required
           />
           <input
             type="text"
@@ -189,6 +219,7 @@ const DarkForm = () => {
             value={inpu.Skills}
             onChange={handlechange}
             name="Skills"
+            required
           />
           <input
             type="text"
@@ -196,6 +227,7 @@ const DarkForm = () => {
             value={inpu.Contactinfo}
             onChange={handlechange}
             name="Contactinfo"
+            required
           />
 
           <p>Profile Image</p>
@@ -204,37 +236,40 @@ const DarkForm = () => {
             accept="image/*"
             onChange={(e) => {
               const file = e.target.files[0];
+              console.log("Selected profile image:", file);
+              console.log("Is File:", file instanceof File);
               setinpu({
                 ...inpu,
                 profileimage: file
               });
             }}
             name="profileimage"
+            required
           />
 
           <div className="btnn">
             <div className="submit">
-              <button type="submit" disabled={loading}>
-                {loading ? <ButtonSpinner label="Creating Dark Portfolio..." /> : "Generate Dark Portfolio"}
+              <button type="submit" disabled={generatingTemplate !== null}>
+                {generatingTemplate === "Dark" ? <ButtonSpinner label="Creating Dark Portfolio..." /> : "Generate Dark Portfolio"}
               </button>
             </div>
 
             <button
               type="button"
               className="submit"
-              disabled={loading}
+              disabled={generatingTemplate !== null}
               onClick={() => handleGenerate("Light")}
             >
-              {loading ? <ButtonSpinner label="Creating Light..." /> : "Generate Light Portfolio"}
+              {generatingTemplate === "Light" ? <ButtonSpinner label="Creating Light..." /> : "Generate Light Portfolio"}
             </button>
 
             <button
               type="button"
               className="submit"
-              disabled={loading}
+              disabled={generatingTemplate !== null}
               onClick={() => handleGenerate("Modern")}
             >
-              {loading ? <ButtonSpinner label="Creating Modern..." /> : "Generate Modern Portfolio"}
+              {generatingTemplate === "Modern" ? <ButtonSpinner label="Creating Modern..." /> : "Generate Modern Portfolio"}
             </button>
           </div>
         </div>

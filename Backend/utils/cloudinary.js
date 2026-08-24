@@ -19,6 +19,7 @@ const upl = async (filePath) => {
     const result = await cloudinary.uploader.upload(filePath, {
       folder: "portfolio-builder",
       resource_type: "auto",
+      timeout: 60000 // 60 seconds timeout
     });
 
     if (fs.existsSync(filePath)) {

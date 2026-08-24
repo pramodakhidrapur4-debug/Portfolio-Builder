@@ -2,8 +2,14 @@ import FormModel from "../models/Formmodel.js";
 import { upl } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
 
-const FormInfo = async (req, res) => {
+const FormInfo = async (req, res, next) => {
   try {
+    console.log("========== FORM REQUEST START ==========");
+    console.log("1. Authenticated user:", req.user || req.userId);
+    console.log("2. Request body:", req.body);
+    console.log("3. Request file:", req.file);
+    console.log("4. Request files:", req.files);
+
     const {
       name,
       profession,
@@ -13,40 +19,64 @@ const FormInfo = async (req, res) => {
       Contact,
     } = req.body;
 
+    console.log("5. Starting profile image processing");
+    const profileFile = req.files?.profileImg?.[0];
+    if (!profileFile) {
+      return res.status(400).json({
+        success: false,
+        message: "Profile image was not received by the server"
+      });
+    }
+
+    let profileImg = "";
+    const profileResult = await upl(profileFile.path);
+    if (profileResult && profileResult.secure_url) {
+      profileImg = profileResult.secure_url;
+    } else {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to upload profile image to Cloudinary"
+      });
+    }
+    console.log("6. Profile image processing complete");
+
+    console.log("7. Starting project image processing");
+    const projectFiles = req.files?.projectImages || [];
+    const uploadedProjectImages = [];
+    for (const file of projectFiles) {
+      const result = await upl(file.path);
+      if (result && result.secure_url) {
+        uploadedProjectImages.push(result.secure_url);
+      } else {
+        uploadedProjectImages.push("");
+      }
+    }
+    console.log("8. Project image processing complete");
+
+    console.log("9. Parsing projects");
     let projects = [];
     if (req.body.projects) {
       try {
         projects = typeof req.body.projects === "string" ? JSON.parse(req.body.projects) : req.body.projects;
       } catch (e) {
+        console.error("Failed to parse projects:", e);
         projects = [];
       }
     }
+    console.log("10. Projects parsed successfully");
 
-    let profileImg = "";
-    if (req.files && req.files.profileImg && req.files.profileImg[0]) {
-      const result = await upl(req.files.profileImg[0].path);
-      if (result && result.secure_url) {
-        profileImg = result.secure_url;
-      }
-    }
+    const finalProjects = projects.map((project, index) => ({
+      ...project,
+      projectImage: uploadedProjectImages[index] || ""
+    }));
 
-    if (req.files && req.files.projectImages) {
-      for (let i = 0; i < projects.length; i++) {
-        if (req.files.projectImages[i]) {
-          const imageResult = await upl(req.files.projectImages[i].path);
-          if (imageResult && imageResult.secure_url) {
-            projects[i].projectImage = imageResult.secure_url;
-          }
-        }
-      }
-    }
-
-    const newform = new FormModel({
-      userId: req.userId,
+    console.log("11. Creating MongoDB document");
+    const formData = new FormModel({
+      userId: req.user || req.userId,
       template: req.body.template || "Standard",
       name: name || "",
       profession: profession || "",
-      projects: projects,
+      projects: finalProjects,
       collageName: collageName || "",
       degree: degree || "",
       skills: skills || "",
@@ -54,25 +84,27 @@ const FormInfo = async (req, res) => {
       profileImg: profileImg || "",
     });
 
-    const savedForm = await newform.save();
-    return res.json({
+    console.log("12. Saving MongoDB document");
+    const savedData = await formData.save();
+    console.log("13. MongoDB saved successfully:", savedData._id);
+    console.log("========== FORM REQUEST SUCCESS ==========");
+
+    return res.status(201).json({
       success: true,
-      name,
-      userId: req.userId,
-      template: req.body.template,
-      profession,
-      projects,
-      collageName,
-      degree,
-      skills,
-      Contact,
-      profileImg,
-      message: "Form data saved successfully",
-      id: savedForm._id,
+      data: savedData
     });
   } catch (error) {
-    console.error("FormInfo error:", error.message);
-    return res.status(500).json({ success: false, message: error.message });
+    console.error("========== PORTFOLIO FILL ERROR ==========");
+    console.error("Message:", error.message);
+    console.error("Name:", error.name);
+    console.error("Stack:", error.stack);
+    console.error("Code:", error.code);
+    console.error("Errors:", error.errors);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Internal Server Error"
+    });
   }
 };
 
