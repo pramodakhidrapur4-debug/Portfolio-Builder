@@ -104,12 +104,18 @@ const DarkForm = () => {
       } else {
         alert("Failed to create portfolio. Please try again.");
       }
-    } catch (err) {
-      console.error(
-        "Portfolio creation error:",
-        err.response?.data || err.message
-      );
-      alert("Error generating portfolio. Please try again.");
+    } catch (error) {
+      console.error("Portfolio creation error:", error);
+      console.log("Status:", error.response?.status);
+      console.log("Response:", error.response?.data);
+
+      const message =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to create portfolio";
+
+      console.error("Backend error message:", message);
+      alert(message);
     } finally {
       setGeneratingTemplate(null);
     }

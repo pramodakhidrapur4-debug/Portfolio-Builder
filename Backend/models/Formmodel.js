@@ -19,9 +19,8 @@ name:{type:String,required:true},
 profession:{type:String,required:true},
 projects:[{
 projectName:{type:String,required:true},
-projectDescription:{type:String,required:true},
+projectDescription:{type:String,default:""},
 projectImage:{type:String,required:true}
-
 }],
 
 

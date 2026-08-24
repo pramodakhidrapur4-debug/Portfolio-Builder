@@ -30,45 +30,53 @@ const FormInfo = async (req, res, next) => {
 
     let profileImg = "";
     const profileResult = await upl(profileFile.path);
-    if (profileResult && profileResult.secure_url) {
-      profileImg = profileResult.secure_url;
-    } else {
-      return res.status(500).json({
-        success: false,
-        message: "Failed to upload profile image to Cloudinary"
-      });
+
+    if (!profileResult?.secure_url) {
+      throw new Error("Profile image uploaded but Cloudinary returned no secure URL");
     }
+    profileImg = profileResult.secure_url;
     console.log("6. Profile image processing complete");
 
     console.log("7. Starting project image processing");
     const projectFiles = req.files?.projectImages || [];
     const uploadedProjectImages = [];
+
     for (const file of projectFiles) {
+      console.log("Uploading project image:", file.path);
+
       const result = await upl(file.path);
-      if (result && result.secure_url) {
-        uploadedProjectImages.push(result.secure_url);
-      } else {
-        uploadedProjectImages.push("");
+
+      if (!result?.secure_url) {
+        throw new Error("A project image failed to upload");
       }
+
+      uploadedProjectImages.push(result.secure_url);
     }
     console.log("8. Project image processing complete");
 
     console.log("9. Parsing projects");
-    let projects = [];
-    if (req.body.projects) {
-      try {
-        projects = typeof req.body.projects === "string" ? JSON.parse(req.body.projects) : req.body.projects;
-      } catch (e) {
-        console.error("Failed to parse projects:", e);
-        projects = [];
+    const projects = JSON.parse(req.body.projects || "[]");
+
+    const finalProjects = projects.map((project, index) => ({
+      projectName: project.projectName || "",
+      projectDescription: project.projectDescription || "",
+      projectImage: uploadedProjectImages[index] || ""
+    }));
+
+    for (const project of finalProjects) {
+      if (!project.projectName) {
+        throw new Error("Project name is required");
+      }
+
+      if (!project.projectDescription) {
+        throw new Error("Project description is required");
+      }
+
+      if (!project.projectImage) {
+        throw new Error("Project image is required");
       }
     }
     console.log("10. Projects parsed successfully");
-
-    const finalProjects = projects.map((project, index) => ({
-      ...project,
-      projectImage: uploadedProjectImages[index] || ""
-    }));
 
     console.log("11. Creating MongoDB document");
     const formData = new FormModel({
