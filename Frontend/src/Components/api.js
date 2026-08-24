@@ -8,14 +8,13 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    console.log("Token from localStorage:", token);
+    console.log("Authorization token exists:", !!token);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
       config.headers.token = token; // Fallback for old routes
     }
 
-    console.log("Authorization being sent:", config.headers.Authorization);
     return config;
   },
   (error) => Promise.reject(error)

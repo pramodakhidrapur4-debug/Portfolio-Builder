@@ -21,11 +21,11 @@ const authmid = async (req, res, next) => {
       });
     }
 
-    console.log("Extracted token:", token);
+    console.log("Authorization token exists: true");
 
     const decoded = jwt.verify(token, process.env.JWT_SEC);
 
-    console.log("Decoded token:", decoded);
+    console.log("Decoded token ID:", decoded.id);
 
     req.userId = decoded.id;
     req.user = decoded.id; // Support both

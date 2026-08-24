@@ -99,10 +99,13 @@ const DarkForm = () => {
 
     try {
       const res = await Formfet(templateName);
-      if (res.data && res.data.id) {
-        navigate(`/portfolio/${res.data.id}`);
+      console.log("Portfolio API response:", res.data);
+      const portfolioId = res.data?.data?._id;
+
+      if (res.data?.success && portfolioId) {
+        navigate(`/portfolio/${portfolioId}`);
       } else {
-        alert("Failed to create portfolio. Please try again.");
+        alert(res.data?.message || "Failed to create portfolio. Please try again.");
       }
     } catch (error) {
       console.error("Portfolio creation error:", error);
