@@ -38,7 +38,7 @@ const Login = () => {
             email: res.data.email,
           })
         );
-        navigate('/');
+        navigate('/ho');
       } else {
         alert(res.data?.message || "Login failed. Please check credentials.");
       }
@@ -68,7 +68,7 @@ const Login = () => {
           const obj = { email, name, picture, token };
           localStorage.setItem('user-info', JSON.stringify(obj));
 
-          navigate("/");
+          navigate("/ho");
         } else {
           alert("Google Login failed");
         }

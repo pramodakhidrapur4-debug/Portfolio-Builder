@@ -33,7 +33,7 @@ const Otpverification = () => {
             email: res.data.email,
           })
         );
-        navigate('/');
+        navigate('/ho');
       } else {
         alert(res.data?.message || "Invalid OTP code");
       }

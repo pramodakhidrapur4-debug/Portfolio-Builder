@@ -30,7 +30,7 @@ const Signin = () => {
           const obj = { email, name, picture, token };
           localStorage.setItem('token', token);
           localStorage.setItem('user-info', JSON.stringify(obj));
-          navigate("/");
+          navigate("/ho");
         } else {
           alert("Google Sign In failed");
         }
