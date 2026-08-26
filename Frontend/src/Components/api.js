@@ -19,7 +19,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-export const googleauth = (code) => api.get(`${API_URL}/api/log/googleLog?code=${code}`)
+export const googleauth = (code) => api.get(`${API_URL}/api/log/googleLog?code=${encodeURIComponent(code)}`, { timeout: 60000 })
 export const signin = (data) => api.post('/api/user/signin', data)
 export const verifyOtp = (data) => api.post('/api/user/veri', data)
 export const log = (data) => api.post('/api/user/login', data)

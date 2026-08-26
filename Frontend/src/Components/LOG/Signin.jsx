@@ -20,6 +20,7 @@ const Signin = () => {
   });
   const [loding, setloding] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const logg = async (out) => {
     try {
@@ -34,14 +35,19 @@ const Signin = () => {
           localStorage.setItem('user-info', JSON.stringify(obj));
           navigate(from, { replace: true });
         } else {
-          alert("Google Sign In failed");
+          alert("Google Sign In failed. Please try again.");
         }
       }
     } catch (error) {
       console.error("Sign in page error:", error);
-      alert("Google sign in failed.");
+      if (error.code === 'ECONNABORTED') {
+        alert("Server is starting up. This may take up to a minute, please try again.");
+      } else {
+        alert("Google sign in failed.");
+      }
     } finally {
       setGoogleLoading(false);
+      setIsPopupOpen(false);
     }
   };
 
@@ -50,9 +56,18 @@ const Signin = () => {
     onError: (error) => {
       console.error(error);
       setGoogleLoading(false);
+      setIsPopupOpen(false);
+    },
+    onNonOAuthError: () => {
+      setIsPopupOpen(false);
     },
     flow: 'auth-code'
   });
+
+  const handleGoogleClick = () => {
+    setIsPopupOpen(true);
+    goog();
+  };
 
   const fomhan = (e) => {
     const { name, value } = e.target;
@@ -129,7 +144,7 @@ const Signin = () => {
           name='passww'
         />
 
-        <button className='bbtnn' onClick={si} disabled={loding || googleLoading}>
+        <button className='bbtnn' onClick={si} disabled={loding || googleLoading || isPopupOpen}>
           {loding ? <ButtonSpinner label="Signing Up..." /> : "Sign Up"}
         </button>
 
@@ -137,9 +152,9 @@ const Signin = () => {
           <label>or</label>
         </div>
 
-        <button onClick={goog} disabled={loding || googleLoading}>
+        <button onClick={handleGoogleClick} disabled={loding || googleLoading || isPopupOpen}>
           <FcGoogle size={22} />
-          {googleLoading ? "Connecting..." : "Sign in with Google"}
+          {googleLoading || isPopupOpen ? "Connecting..." : "Sign in with Google"}
         </button>
 
         <div className="signn" onClick={() => navigate('/Log', { state: { from: location.state?.from } })}>

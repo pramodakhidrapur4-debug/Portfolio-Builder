@@ -17,6 +17,7 @@ const Login = () => {
   });
   const [loding, setloding] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const lo = async () => {
     if (!form.email || !form.passw) {
@@ -72,14 +73,19 @@ const Login = () => {
 
           navigate(from, { replace: true });
         } else {
-          alert("Google Login failed");
+          alert("Google Login failed. Please try again.");
         }
       }
     } catch (error) {
       console.error("Google authentication error:", error);
-      alert("Google login error. Please try again.");
+      if (error.code === 'ECONNABORTED') {
+        alert("Server is starting up. This may take up to a minute, please try again.");
+      } else {
+        alert("Google login error. Please try again.");
+      }
     } finally {
       setGoogleLoading(false);
+      setIsPopupOpen(false);
     }
   };
 
@@ -88,9 +94,18 @@ const Login = () => {
     onError: (error) => {
       console.error(error);
       setGoogleLoading(false);
+      setIsPopupOpen(false);
+    },
+    onNonOAuthError: () => {
+      setIsPopupOpen(false);
     },
     flow: 'auth-code'
   });
+
+  const handleGoogleClick = () => {
+    setIsPopupOpen(true);
+    goolelog();
+  };
 
   return (
     <div className="alon">
@@ -116,7 +131,7 @@ const Login = () => {
             value={form.passw}
           />
 
-          <button className="bbtn" onClick={lo} disabled={loding || googleLoading}>
+          <button className="bbtn" onClick={lo} disabled={loding || googleLoading || isPopupOpen}>
             {loding ? <ButtonSpinner label="Signing In..." /> : "Login"}
           </button>
 
@@ -125,9 +140,9 @@ const Login = () => {
           </div>
 
           <div className="gog">
-            <button onClick={() => goolelog()} disabled={loding || googleLoading}>
+            <button onClick={handleGoogleClick} disabled={loding || googleLoading || isPopupOpen}>
               <FcGoogle size={22} style={{ margin: "8px" }} />
-              {googleLoading ? "Connecting..." : "Continue with Google"}
+              {googleLoading || isPopupOpen ? "Connecting..." : "Continue with Google"}
             </button>
           </div>
 
