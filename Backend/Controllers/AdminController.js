@@ -3,7 +3,7 @@ import gogmod from "../models/GoogleLog.js";
 import FormModel from "../models/Formmodel.js";
 import PaymentModel from "../models/Payment.js";
 import DiscussionModel from "../models/Discussion.js";
-import EnquiryModel from "../models/Enquiry.js";
+import BusinessEnquiryModel from "../models/BusinessEnquiry.js";
 import Razorpay from "razorpay";
 
 const instance = new Razorpay({
@@ -337,7 +337,7 @@ const deleteDiscussion = async (req, res) => {
 // ───────────────────────────────────────────
 const getEnquiries = async (req, res) => {
   try {
-    const enquiries = await EnquiryModel.find().sort({ createdAt: -1 });
+    const enquiries = await BusinessEnquiryModel.find().sort({ createdAt: -1 });
     res.json({ success: true, enquiries });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -346,7 +346,7 @@ const getEnquiries = async (req, res) => {
 
 const createEnquiry = async (req, res) => {
   try {
-    const enquiry = new EnquiryModel(req.body);
+    const enquiry = new BusinessEnquiryModel(req.body);
     await enquiry.save();
     res.status(201).json({ success: true, enquiry });
   } catch (error) {
@@ -357,7 +357,7 @@ const createEnquiry = async (req, res) => {
 const updateEnquiry = async (req, res) => {
   try {
     const { id } = req.params;
-    const enquiry = await EnquiryModel.findByIdAndUpdate(id, req.body, {
+    const enquiry = await BusinessEnquiryModel.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     if (!enquiry) {
@@ -372,7 +372,7 @@ const updateEnquiry = async (req, res) => {
 const deleteEnquiry = async (req, res) => {
   try {
     const { id } = req.params;
-    const enquiry = await EnquiryModel.findByIdAndDelete(id);
+    const enquiry = await BusinessEnquiryModel.findByIdAndDelete(id);
     if (!enquiry) {
       return res.status(404).json({ success: false, message: "Enquiry not found" });
     }

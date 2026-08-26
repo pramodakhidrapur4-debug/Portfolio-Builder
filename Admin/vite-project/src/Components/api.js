@@ -53,10 +53,10 @@ export const updateDiscussion = (id, data) => api.put(`/api/admin/discussions/${
 export const deleteDiscussion = (id) => api.delete(`/api/admin/discussions/${id}`);
 
 // ── Enquiries — CRUD ──────────────────────────────────────
-export const getEnquiries = () => api.get(`/api/business-enquiries`);
-export const createEnquiry = (data) => api.post(`/api/business-enquiries`, data);
-export const updateEnquiry = (id, data) => api.patch(`/api/business-enquiries/${id}/status`, data);
-export const deleteEnquiry = (id) => api.delete(`/api/business-enquiries/${id}`);
+export const getEnquiries = () => api.get(`/api/admin/enquiries`);
+export const createEnquiry = (data) => api.post(`/api/admin/enquiries`, data);
+export const updateEnquiry = (id, data) => api.put(`/api/admin/enquiries/${id}`, data);
+export const deleteEnquiry = (id) => api.delete(`/api/admin/enquiries/${id}`);
 
 // ── Previous Works ────────────────────────────────────────
 export const getPreviousWorksAdmin = () => api.get(`/api/works`);
