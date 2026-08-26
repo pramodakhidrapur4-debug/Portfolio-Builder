@@ -10,11 +10,15 @@ import {
   getEnquiries,
   createEnquiry,
   updateEnquiry,
-  deleteEnquiry,
+  deleteEnquiry
 } from "../Controllers/AdminController.js";
 import express from "express";
+import authmid from "../Middleware/Auth.js";
 
 const roog = express.Router();
+
+// Apply auth middleware to all admin routes
+roog.use(authmid);
 
 // Dashboard stats
 roog.get("/stats", getDashboardStats);

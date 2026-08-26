@@ -157,11 +157,18 @@ const Users = () => {
                       <td className="text-primary">
                         <div className="user-name-cell">
                           <div className="user-avatar">
-                            {user.picture ? (
-                              <img src={user.picture} alt={user.name} />
-                            ) : (
-                              user.name?.charAt(0)?.toUpperCase() || "?"
+                            {user.picture && (
+                              <img 
+                                src={user.picture} 
+                                alt={user.name} 
+                                onError={(e) => {
+                                  e.target.style.display = 'none';
+                                }}
+                              />
                             )}
+                            <span className="user-avatar-initial" style={{ position: 'absolute' }}>
+                              {user.name?.charAt(0)?.toUpperCase() || "?"}
+                            </span>
                           </div>
                           {user.name}
                         </div>

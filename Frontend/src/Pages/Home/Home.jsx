@@ -7,6 +7,8 @@ import Features from "../../Components/Features/Features";
 import TemStru from "../../Components/TemStru.jsx/TemStru";
 import Contact from "../../Components/Contact/Contact";
 import Footer from "../../Components/Footer/Footer";
+import BusinessPage from "../../Components/BusinessPage/BusinessPage";
+import OurPrevWork from "../../Components/OurPrevWork/OurPrevWork";
 
 const Home = () => {
   const navigate = useNavigate();

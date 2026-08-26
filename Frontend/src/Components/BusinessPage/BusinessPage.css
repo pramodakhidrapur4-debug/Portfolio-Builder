@@ -1,0 +1,146 @@
+/* BusinessPage.css */
+
+.business {
+  min-height: 45vh;
+  padding: 100px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: transparent;
+  color: white;
+}
+
+.business h1 {
+  max-width: 800px;
+  margin: 0 0 20px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+
+.business p {
+  max-width: 650px;
+  margin: 0;
+  color: #a1a1aa;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* Form section */
+
+.busi {
+  width: min(650px, calc(100% - 40px));
+  margin: -20px auto 80px;
+  padding: 35px;
+
+  background: rgba(24, 24, 27, 0.9);
+  border: 1px solid #27272a;
+  border-radius: 20px;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.busi form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Inputs */
+
+.busi input,
+.busi textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 15px 16px;
+
+  border: 1px solid #333338;
+  border-radius: 10px;
+
+  background: #111114;
+  color: white;
+
+  font-size: 15px;
+  outline: none;
+
+  transition: 0.25s ease;
+}
+
+.busi input::placeholder,
+.busi textarea::placeholder {
+  color: #71717a;
+}
+
+.busi input:focus,
+.busi textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.busi textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* Button */
+
+.byy {
+  margin-top: 5px;
+}
+
+.byy button {
+  width: 100%;
+  padding: 15px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #6366f1;
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.byy button:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+}
+
+.byy button:active {
+  transform: translateY(0);
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .business {
+    min-height: 40vh;
+    padding: 80px 20px 50px;
+  }
+
+  .business h1 {
+    font-size: 34px;
+    letter-spacing: -1px;
+  }
+
+  .business p {
+    font-size: 15px;
+  }
+
+  .busi {
+    width: calc(100% - 30px);
+    padding: 25px;
+    margin-bottom: 50px;
+    border-radius: 16px;
+  }
+}

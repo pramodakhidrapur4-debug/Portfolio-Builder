@@ -7,7 +7,7 @@
   position: relative;
   overflow: hidden;
   padding: 60px 24px 80px 24px;
-  background: #09090e;
+  background: transparent;
 }
 
 /* Ambient glows & subtle grid overlay */
@@ -42,12 +42,7 @@
 }
 
 .ambient-grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
+  display: none;
 }
 
 /* Container Content Grid */

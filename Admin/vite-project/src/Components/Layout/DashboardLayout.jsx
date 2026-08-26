@@ -13,6 +13,7 @@ const PAGE_TITLES = {
   "/portfolios": "Portfolios",
   "/discussions": "Discussions",
   "/enquiries": "Enquiries",
+  "/works": "Previous Works",
 };
 
 const DashboardLayout = () => {

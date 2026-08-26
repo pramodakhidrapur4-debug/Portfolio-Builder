@@ -8,6 +8,7 @@ import Payments from "./Components/Payments/Payments";
 import Portfolios from "./Components/Portfolios/Portfolios";
 import Discussions from "./Components/Discussions/Discussions";
 import Enquiries from "./Components/Enquiries/Enquiries";
+import WorksManager from "./Components/WorksManager/WorksManager";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/portfolios" element={<Portfolios />} />
           <Route path="/discussions" element={<Discussions />} />
           <Route path="/enquiries" element={<Enquiries />} />
+          <Route path="/works" element={<WorksManager />} />
         </Route>
 
         {/* Redirect root to dashboard */}

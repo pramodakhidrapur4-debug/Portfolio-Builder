@@ -17,6 +17,7 @@ const NAV_ITEMS = [
   { path: "/portfolios", label: "Portfolios", icon: <HiOutlineCollection /> },
   { path: "/discussions", label: "Discussions", icon: <HiOutlineChatAlt2 /> },
   { path: "/enquiries", label: "Enquiries", icon: <HiOutlineInbox /> },
+  { path: "/works", label: "Previous Works", icon: <HiOutlineCollection /> },
 ];
 
 const Sidebar = ({ isOpen, onClose }) => {

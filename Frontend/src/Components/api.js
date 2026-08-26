@@ -8,7 +8,6 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    console.log("Authorization token exists:", !!token);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -54,7 +53,10 @@ export const prof = () => {
   return api.get("/api/pro/profile");
 };
 
-///port-link
 export const portLink = () => {
   return api.get("/api/pro/port-link");
 }
+
+export const getPreviousWorks = () => api.get('/api/works');
+
+export const createBusinessEnquiry = (data) => api.post('/api/business-enquiries', data);

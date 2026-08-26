@@ -16,6 +16,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Navigate } from "react-router-dom";
 import Profile from "./Components/Profile/Profile";
 import LandingPage from "./Pages/LandingPage/LandingPage";
+import BusinessPage from "./Components/BusinessPage/BusinessPage";
 const App = () => {
 const Protected=({children})=>{
 const tok=localStorage.getItem("token");
@@ -33,6 +34,8 @@ if(!tok){
     <div>
       <Rou>
         <Routes>
+               <Route path="/business" element={<BusinessPage />} />
+
            <Route path="/" element={<LandingPage />} />
           <Route path="/ho" element={<Home />} />
           <Route path="/Register" element={<Register />} />

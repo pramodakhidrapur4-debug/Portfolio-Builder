@@ -2,10 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiLockClosed, HiIdentification, HiEye, HiEyeOff, HiShieldCheck } from "react-icons/hi";
 import { useToast } from "../UI/Toast";
+import { adminLogin } from "../api";
 import "./Login.css";
-
-const ADMIN_ID = "990299";
-const ADMIN_PASS = "Tast@123";
 
 const Login = () => {
   const [adminId, setAdminId] = useState("");
@@ -17,7 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -29,19 +27,25 @@ const Login = () => {
 
     setLoading(true);
 
-    // Simulate brief verification delay for UX
-    setTimeout(() => {
-      if (adminId === ADMIN_ID && password === ADMIN_PASS) {
-        sessionStorage.setItem("adminAuth", "true");
+    try {
+      const res = await adminLogin({ email: adminId, password });
+      
+      if (res.data.success) {
+        sessionStorage.setItem("adminAuth", res.data.token);
         toast.success("Welcome back, Admin!");
         navigate("/dashboard", { replace: true });
       } else {
-        setError("Invalid Admin ID or Password");
+        setError(res.data.message || "Invalid Email or Password");
         triggerShake();
         toast.error("Authentication failed");
       }
+    } catch (err) {
+      setError("Server error during login");
+      triggerShake();
+      toast.error("Authentication failed");
+    } finally {
       setLoading(false);
-    }, 600);
+    }
   };
 
   const triggerShake = () => {
@@ -71,16 +75,16 @@ const Login = () => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="login-card__form">
           <div className="login-field">
-            <label htmlFor="admin-id">Admin ID</label>
+            <label htmlFor="admin-email">Admin Email</label>
             <div className="login-field__wrapper">
               <HiIdentification className="login-field__icon" />
               <input
-                id="admin-id"
-                type="text"
-                placeholder="Enter your Admin ID"
+                id="admin-email"
+                type="email"
+                placeholder="Enter your Admin Email"
                 value={adminId}
                 onChange={(e) => setAdminId(e.target.value)}
-                autoComplete="off"
+                required
               />
             </div>
           </div>

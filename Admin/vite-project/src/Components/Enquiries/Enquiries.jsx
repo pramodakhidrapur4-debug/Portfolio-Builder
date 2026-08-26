@@ -12,11 +12,11 @@ import Modal from "../UI/Modal";
 import { useToast } from "../UI/Toast";
 import "./Enquiries.css";
 
-const STATUS_OPTIONS = ["Pending", "Contacted", "Completed"];
+const STATUS_OPTIONS = ["Pending", "On Going", "Completed"];
 
 const STATUS_BADGE = {
   Pending: "badge--warning",
-  Contacted: "badge--info",
+  "On Going": "badge--info",
   Completed: "badge--success",
 };
 
@@ -24,6 +24,7 @@ const EMPTY_FORM = {
   name: "",
   email: "",
   phone: "",
+  businessName: "",
   message: "",
   status: "Pending",
 };
@@ -141,9 +142,9 @@ const Enquiries = () => {
       <div className="enquiry-info-banner">
         <HiInformationCircle className="enquiry-info-icon" />
         <div>
-          <strong>What is the Enquiry Section?</strong>
+          <strong>What is the Business Enquiry Section?</strong>
           <span>
-            This section stores consultation requests, project inquiries, and contact messages submitted by potential clients. Use the quick buttons below to change status between <em>Pending</em>, <em>Contacted</em>, and <em>Completed</em>.
+            This section stores consultation requests and business requirements submitted from the Business Page. Use the quick buttons below to change status between <em>Pending</em>, <em>On Going</em>, and <em>Completed</em>.
           </span>
         </div>
       </div>
@@ -184,9 +185,10 @@ const Enquiries = () => {
           <table className="data-table">
             <thead>
               <tr>
-                <th>Client Name</th>
+                <th>Customer Name</th>
+                <th>Business Name</th>
                 <th>Contact Info</th>
-                <th>Message / Requirement</th>
+                <th>Requirements / Message</th>
                 <th>Received Date</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -196,6 +198,7 @@ const Enquiries = () => {
               {filtered.map((enq) => (
                 <tr key={enq._id}>
                   <td className="text-primary">{enq.name}</td>
+                  <td>{enq.businessName || "—"}</td>
                   <td>
                     <div className="enq-contact">
                       <span>
@@ -242,12 +245,12 @@ const Enquiries = () => {
                   </td>
                   <td>
                     <div className="enq-actions">
-                      {enq.status !== "Contacted" && (
+                      {enq.status !== "On Going" && (
                         <button
                           className="btn btn--sm enq-action-btn enq-action-btn--contacted"
-                          onClick={() => handleStatusUpdate(enq._id, "Contacted")}
+                          onClick={() => handleStatusUpdate(enq._id, "On Going")}
                         >
-                          Mark Contacted
+                          Mark On Going
                         </button>
                       )}
                       {enq.status !== "Pending" && (
@@ -309,6 +312,15 @@ const Enquiries = () => {
                 required
               />
             </div>
+          </div>
+          <div className="form-group">
+            <label>Business Name</label>
+            <input
+              type="text"
+              value={form.businessName}
+              onChange={(e) => setForm({ ...form, businessName: e.target.value })}
+              placeholder="Business name"
+            />
           </div>
           <div className="form-group">
             <label>Phone Number</label>
