@@ -1,4 +1,4 @@
-import { BrowserRouter as Rou, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Rou, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import React from "react";
 import Home from "./Pages/Home/Home";
 import PortfolioLive from "./Pages/PortfolioLive/PortfolioLive";
@@ -14,16 +14,27 @@ import Login from "./Components/LOG/Login";
 import Signin from "./Components/LOG/Signin";
 import Otpverification from "./Components/LOG/Otpverification";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { Navigate } from "react-router-dom";
+// Navigate imported above
 import Profile from "./Components/Profile/Profile";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import BusinessPage from "./Components/BusinessPage/BusinessPage";
 const App = () => {
-const Protected=({children})=>{
+const ProtectedRoute=({children})=>{
 const tok=localStorage.getItem("token");
+const location = useLocation();
 
 if(!tok){
-  return <Navigate to="/Log" replace />;
+  return <Navigate to="/Log" state={{ from: location }} replace />;
+}
+    return children;
+
+}
+
+const PublicRoute=({children})=>{
+const tok=localStorage.getItem("token");
+
+if(tok){
+  return <Navigate to="/ho" replace />;
 }
     return children;
 
@@ -38,8 +49,8 @@ if(!tok){
         <Routes>
                <Route path="/business" element={<BusinessPage />} />
 
-           <Route path="/" element={<LandingPage />} />
-          <Route path="/ho" element={<Home />} />
+           <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+          <Route path="/ho" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/Register" element={<Register />} />
                     <Route path="/Dark/:id" element={<Dark /> } />
                                         <Route path="/Dark/" element={<Dark /> } />
@@ -52,12 +63,12 @@ if(!tok){
                     <Route path="/Modern/:id" element={<Modern />} />
                     <Route path="/Modern/" element={<Modern />} />
 
-                    <Route path="/DarkForm" element={<Protected><DarkForm/></Protected>} />
-                                        <Route path="/Log" element={<Login />} />
-                                        <Route path="/sig" element={<Signin/>} />
-<Route path="/verify" element={< Otpverification/>} />
+                    <Route path="/DarkForm" element={<ProtectedRoute><DarkForm/></ProtectedRoute>} />
+                                        <Route path="/Log" element={<PublicRoute><Login /></PublicRoute>} />
+                                        <Route path="/sig" element={<PublicRoute><Signin/></PublicRoute>} />
+<Route path="/verify" element={<PublicRoute>< Otpverification/></PublicRoute>} />
 
-<Route path='/prof' element={<Profile/>} />
+<Route path='/prof' element={<ProtectedRoute><Profile/></ProtectedRoute>} />
 
         </Routes>
       </Rou>

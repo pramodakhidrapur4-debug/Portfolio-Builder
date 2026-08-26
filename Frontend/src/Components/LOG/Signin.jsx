@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import './sign.css';
 import { googleauth, signin } from '../api.js';
@@ -8,6 +8,8 @@ import { PageOverlayLoader, ButtonSpinner } from '../Loader/Loader';
 
 const Signin = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/ho";
 
   const [form, setform] = useState({
     name: "",
@@ -30,7 +32,7 @@ const Signin = () => {
           const obj = { email, name, picture, token };
           localStorage.setItem('token', token);
           localStorage.setItem('user-info', JSON.stringify(obj));
-          navigate("/ho");
+          navigate(from, { replace: true });
         } else {
           alert("Google Sign In failed");
         }
@@ -74,7 +76,7 @@ const Signin = () => {
 
       if (res.data && res.data.success) {
         alert(res.data.message);
-        navigate('/verify');
+        navigate('/verify', { state: { from: location.state?.from } });
       } else {
         alert(res.data?.message || "Sign in failed");
       }
@@ -140,7 +142,7 @@ const Signin = () => {
           {googleLoading ? "Connecting..." : "Sign in with Google"}
         </button>
 
-        <div className="signn" onClick={() => navigate('/Log')}>
+        <div className="signn" onClick={() => navigate('/Log', { state: { from: location.state?.from } })}>
           Already have an account? LOGIN
         </div>
       </div>  

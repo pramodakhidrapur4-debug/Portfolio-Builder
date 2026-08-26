@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import './Login.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useGoogleLogin } from '@react-oauth/google';
 import { googleauth, log } from '../api.js';
 import { PageOverlayLoader, ButtonSpinner } from '../Loader/Loader';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/ho";
 
   const [form, setform] = useState({
     email: "",
@@ -38,7 +40,7 @@ const Login = () => {
             email: res.data.email,
           })
         );
-        navigate('/ho');
+        navigate(from, { replace: true });
       } else {
         alert(res.data?.message || "Login failed. Please check credentials.");
       }
@@ -68,7 +70,7 @@ const Login = () => {
           const obj = { email, name, picture, token };
           localStorage.setItem('user-info', JSON.stringify(obj));
 
-          navigate("/ho");
+          navigate(from, { replace: true });
         } else {
           alert("Google Login failed");
         }
@@ -129,7 +131,7 @@ const Login = () => {
             </button>
           </div>
 
-          <div className="sig-link" onClick={() => navigate('/sig')}>
+          <div className="sig-link" onClick={() => navigate('/sig', { state: { from: location.state?.from } })}>
             Don't have an account? Sign In
           </div>
         </div>

@@ -16,7 +16,7 @@ setuserinfo(userdata);
     <div>
       <div className="Nav">
         <div className="Nav-Container">
-        <a href='/' >Home</a>
+        <a href='/' onClick={(e) => { e.preventDefault(); navigate(userinfo ? '/ho' : '/'); }}>Home</a>
         <a href='#tt' >Templates</a>
         <a href='#Cont' >Book a Custom Website Consultation</a>
 

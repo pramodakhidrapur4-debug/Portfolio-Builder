@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './Otpverification.css';
 import { verifyOtp } from '../api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ButtonSpinner } from '../Loader/Loader';
 
 const Otpverification = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/ho";
   const [otp, setotp] = useState("");
   const [email, setemail] = useState("");
   const [loding, setloding] = useState(false);
@@ -33,7 +35,7 @@ const Otpverification = () => {
             email: res.data.email,
           })
         );
-        navigate('/ho');
+        navigate(from, { replace: true });
       } else {
         alert(res.data?.message || "Invalid OTP code");
       }
