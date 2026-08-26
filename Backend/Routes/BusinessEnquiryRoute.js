@@ -21,7 +21,7 @@ router.post("/", createBusinessEnquiry);
 // ADMIN ROUTES (Protected)
 // ───────────────────────────────────────────
 router.use(authmid);
-router.use(adminAuth);
+// router.use(adminAuth); // Removed to use the same session validation as Dashboard
 
 router.get("/", getBusinessEnquiries);
 router.get("/:id", getBusinessEnquiryById);
