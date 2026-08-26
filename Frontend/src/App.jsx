@@ -3,6 +3,7 @@ import React from "react";
 import Home from "./Pages/Home/Home";
 import PortfolioLive from "./Pages/PortfolioLive/PortfolioLive";
 import Register from "./Components/Register/Register";
+import ScrollToTop from "./Components/ScrollToTop";
 import TemStru from "./Components/TemStru.jsx/TemStru";
 import DarkForm from "./Components/Template-forms/DarkForm";
 
@@ -33,6 +34,7 @@ if(!tok){
 
     <div>
       <Rou>
+        <ScrollToTop />
         <Routes>
                <Route path="/business" element={<BusinessPage />} />
 

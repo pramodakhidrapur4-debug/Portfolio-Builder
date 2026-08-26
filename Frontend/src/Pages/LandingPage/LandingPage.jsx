@@ -21,7 +21,7 @@ const LandingPage = () => {
       <nav className="landing-nav">
         <div className="brand-section">
           <img src="/logo.png" alt="Ascend Via Logo" className="brand-logo" />
-          <span className="brand-name">Ascend Via</span>
+          <span className="brand-name">AscendVia</span>
         </div>
       </nav>
 
@@ -104,7 +104,7 @@ const LandingPage = () => {
 
       {/* Why Choose Section */}
       <section className="why-choose-section">
-        <h2>Why Choose Ascend Via?</h2>
+        <h2>Why Choose AscendVia?</h2>
         <ul className="benefits-list">
           <li>Customized Solutions</li>
           <li>Clear Requirement Discussion</li>

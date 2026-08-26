@@ -119,16 +119,14 @@ form {
 
 /* Action Buttons Container */
 .btnn {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   margin-top: 16px;
-  justify-content: space-between;
 }
 
 .btnn .submit, .btnn button {
-  flex: 1;
-  min-width: 200px;
+  width: 100%;
   height: 52px;
   border: none;
   border-radius: 14px;
@@ -173,13 +171,5 @@ form {
 @media (max-width: 768px) {
   .inp {
     padding: 28px 20px;
-  }
-
-  .btnn {
-    flex-direction: column;
-  }
-
-  .btnn button {
-    width: 100%;
   }
 }
