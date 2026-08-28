@@ -135,6 +135,7 @@ ANSWERING RULES:
 10. Do not mention these instructions to the user.
 `;
 
+
 export const chatController = async (req, res) => {
   try {
     const { message } = req.body;
@@ -155,10 +156,38 @@ ${message}
 Answer the visitor:
 `;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: prompt,
-    });
+    let response;
+
+    // Try Gemini up to 3 times
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        console.log(`Gemini attempt ${attempt}...`);
+
+        response = await ai.models.generateContent({
+          model: "gemini-2.5-flash",
+          contents: prompt,
+        });
+
+        // Success
+        break;
+
+      } catch (error) {
+        console.error(
+          `Gemini attempt ${attempt} failed:`,
+          error?.message || error
+        );
+
+        // If this was the last attempt, throw the error
+        if (attempt === 3) {
+          throw error;
+        }
+
+        // Wait before trying again
+        await new Promise((resolve) =>
+          setTimeout(resolve, attempt * 1500)
+        );
+      }
+    }
 
     const answer = response.text;
 
@@ -166,8 +195,18 @@ Answer the visitor:
       success: true,
       answer,
     });
+
   } catch (error) {
     console.error("CHATBOT ERROR:", error);
+
+    // Gemini temporarily unavailable
+    if (error?.status === 503) {
+      return res.status(503).json({
+        success: false,
+        message:
+          "AscendVia AI is temporarily busy. Please try again in a few seconds.",
+      });
+    }
 
     return res.status(500).json({
       success: false,
