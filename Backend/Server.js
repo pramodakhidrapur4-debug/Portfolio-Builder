@@ -11,6 +11,7 @@ import rro from './Routes/ProfileRoute.js';
 import { roog } from './Routes/AdminRoute.js';
 import worksRouter from './Routes/WorksRoute.js';
 import businessEnquiryRoutes from './Routes/BusinessEnquiryRoute.js';
+import chatRoutes from "./Routes/ChatRoute.js";
 const app=express();
 
 //middleware
@@ -48,6 +49,7 @@ app.use('/api/pro',rro)
 app.use('/api/admin',roog)
 app.use('/api/works', worksRouter);
 app.use('/api/business-enquiries', businessEnquiryRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.use((err, req, res, next) => {
   console.error("GLOBAL ERROR:", err);
