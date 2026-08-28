@@ -80,7 +80,7 @@ const Header = () => {
           {/* Service Feature Tags */}
           <div className="hero-tags">
             <span className="tag-item"><HiCode /> Custom Websites</span>
-            <span className="tag-item"><HiBriefcase /> Portfolio Builder</span>
+            <span className="tag-item"><HiBriefcase /> AscendVia</span>
             <span className="tag-item"><HiDocumentText /> Resume Review</span>
             <span className="tag-item"><HiAcademicCap /> Student Projects</span>
             <span className="tag-item"><HiUserGroup /> Career Consultation</span>

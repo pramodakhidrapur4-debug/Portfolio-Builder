@@ -6,6 +6,7 @@ import Register from "./Components/Register/Register";
 import ScrollToTop from "./Components/ScrollToTop";
 import TemStru from "./Components/TemStru.jsx/TemStru";
 import DarkForm from "./Components/Template-forms/DarkForm";
+import Chatbot from "./Components/Chatbot/Chatbot";
 
 import Dark from "./Components/Tmeplates/web/Dark/Dark";
 import Light from "./Components/Tmeplates/web/Light/Light";
@@ -71,9 +72,12 @@ if(tok){
 <Route path='/prof' element={<ProtectedRoute><Profile/></ProtectedRoute>} />
 
         </Routes>
+        <Chatbot />
       </Rou>
     </div>
     </GoogleOAuthProvider>
+
+  
 
   );
 };
