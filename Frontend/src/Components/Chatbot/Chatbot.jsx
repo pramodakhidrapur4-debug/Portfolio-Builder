@@ -29,7 +29,7 @@ function Chatbot() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/api/chat", {
+      const response = await fetch("http://https://portfolio-cs7i.onrender.com/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
