@@ -68,7 +68,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         {/* Footer */}
         <div className="sidebar__footer">
           <div className="sidebar__footer-card">
-            <p>Portfolio Builder</p>
+            <p>AscendVia</p>
             <span>v2.0 • Admin</span>
           </div>
         </div>

@@ -38,10 +38,10 @@ const Footer = () => {
               <div className="footer-logo">
                 <HiSparkles className="footer-logo-icon" />
               </div>
-              <h2 className="footer-brand-title">Portfolio Builder</h2>
+              <h2 className="footer-brand-title">AscendVia</h2>
             </div>
             <p className="footer-about-text">
-              Portfolio Builder helps individuals, students, freelancers, and businesses build a strong online presence. Along with portfolio website creation, we provide custom website development, interview preparation, resume reviews, student project development, website consultation, UI/UX guidance, and career support.
+              AscendVia helps individuals, students, freelancers, and businesses build a strong online presence. Along with portfolio website creation, we provide custom website development, interview preparation, resume reviews, student project development, website consultation, UI/UX guidance, and career support.
             </p>
             <div className="footer-trust-badge">
               <HiCheckCircle className="badge-icon" />
@@ -165,10 +165,10 @@ const Footer = () => {
           <div className="footer-bottom-divider" />
           <div className="footer-bottom-content">
             <p className="copyright-text">
-              © 2026 Portfolio Builder. All Rights Reserved.
+              © 2026 AscendVia. All Rights Reserved.
             </p>
             <p className="credits-text">
-              Designed & Developed by Portfolio Builder.
+              Designed & Developed by AscendVia.
             </p>
           </div>
         </div>

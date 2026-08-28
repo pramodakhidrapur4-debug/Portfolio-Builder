@@ -69,7 +69,7 @@ const Login = () => {
             <HiShieldCheck />
           </div>
           <h1>Admin Panel</h1>
-          <p>Portfolio Builder Management Dashboard</p>
+          <p>AscendVia Management Dashboard</p>
         </div>
 
         {/* Form */}
@@ -131,7 +131,7 @@ const Login = () => {
         </form>
 
         <div className="login-card__footer">
-          <p>Secured Admin Access • Portfolio Builder</p>
+          <p>Secured Admin Access • AscendVia</p>
         </div>
       </div>
     </div>

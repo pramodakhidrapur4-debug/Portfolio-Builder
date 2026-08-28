@@ -18,7 +18,7 @@ const Contact = () => {
         key: keyy.data.key,
         amount: orderr.data.amount,
         currency: orderr.data.currency,
-        name: 'Portfolio Builder',
+        name: 'AscendVia',
         description: `Website Consultation (₹${amount})`,
         order_id: orderr.data.id,
         handler: async function (response) {

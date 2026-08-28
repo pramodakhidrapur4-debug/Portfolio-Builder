@@ -52,7 +52,7 @@ const Otpverification = () => {
       <div className="otp-container">
         
         <div className="otp-left">
-          <div className="otp-brand">Portfolio Builder</div>
+          <div className="otp-brand">AscendVia</div>
           <h1>Verify your account</h1>
           <p>
             We’ve sent a one-time password to your email.

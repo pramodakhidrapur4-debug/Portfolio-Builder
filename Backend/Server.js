@@ -11,7 +11,7 @@ import rro from './Routes/ProfileRoute.js';
 import { roog } from './Routes/AdminRoute.js';
 import worksRouter from './Routes/WorksRoute.js';
 import businessEnquiryRoutes from './Routes/BusinessEnquiryRoute.js';
-import chatRoutes from "./Routes/ChatRoute.js";
+import chatRoutes from "./Routes/chatRoutes.js";
 const app=express();
 
 //middleware

@@ -83,14 +83,14 @@ const sign = async (req, res) => {
       async function sendMail() {
         try {
           await transporter.sendMail({
-            from: `"PORTFOLIO BUILDER" <${process.env.SMTP_USER}>`,
+            from: `"AscendVia" <${process.env.SMTP_USER}>`,
             to: email,
-            subject: "Welcome to Portfolio Builder",
-            text: `Hello, thank you for joining Portfolio Builder. YOUR OTP IS: ${otpsen}`,
+            subject: "Welcome to AscendVia",
+            text: `Hello, thank you for joining AscendVia. YOUR OTP IS: ${otpsen}`,
             html: `
               <div style="font-family: Arial, sans-serif; padding: 20px;">
-                <h2>Welcome to Portfolio Builder</h2>
-                <p>Hello, thank you for joining Portfolio Builder.</p>
+                <h2>Welcome to AscendVia</h2>
+                <p>Hello, thank you for joining AscendVia.</p>
                 <p>YOUR OTP IS: <b>${otpsen}</b></p>
               </div>
             `,
