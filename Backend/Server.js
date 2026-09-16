@@ -18,18 +18,34 @@ const app=express();
 
 //middleware
 const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:3000",
-    "https://portfoliobuilder-three.vercel.app",
-    "https://portfolio-builder-eight-chi.vercel.app",
-    "https://portfolio-builder-git-main-pramodakhidrapur-4643s-projects.vercel.app",
-    "https://www.ascendvia.in",
-    "https://www.ascendvia.com",
-    process.env.FRONTEND_URL,
-    process.env.ADMIN_URL
-  ].filter(Boolean),
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://localhost:3000",
+      "https://portfoliobuilder-three.vercel.app",
+      "https://portfolio-builder-eight-chi.vercel.app",
+      "https://portfolio-builder-git-main-pramodakhidrapur-4643s-projects.vercel.app",
+      "https://www.ascendvia.in",
+      "https://ascendvia.in",
+      "https://www.ascendvia.com",
+      "https://ascendvia.com",
+      process.env.FRONTEND_URL,
+      process.env.ADMIN_URL
+    ].filter(Boolean);
+
+    if (
+      allowedOrigins.some(allowed => origin.startsWith(allowed)) ||
+      origin.includes("ascendvia")
+    ) {
+      callback(null, true);
+    } else {
+      console.warn(`CORS rejected origin: ${origin}`);
+      callback(null, false); // false means do not include CORS headers
+    }
+  },
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "token", "Accept"],
   credentials: true,
