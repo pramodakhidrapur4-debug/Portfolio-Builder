@@ -25,6 +25,8 @@ const corsOptions = {
     "https://portfoliobuilder-three.vercel.app",
     "https://portfolio-builder-eight-chi.vercel.app",
     "https://portfolio-builder-git-main-pramodakhidrapur-4643s-projects.vercel.app",
+    "https://www.ascendvia.in",
+    "https://www.ascendvia.com",
     process.env.FRONTEND_URL,
     process.env.ADMIN_URL
   ].filter(Boolean),
