@@ -1,4 +1,3 @@
-import "dotenv/config";
 import Razorpay from "razorpay";
 import crypto from "crypto";
 import PaymentModel from "../models/Payment.js";
@@ -6,13 +5,13 @@ import usermod from "../models/usermodel.js";
 import gogmod from "../models/GoogleLog.js";
 
 const instance = new Razorpay({
-  key_id: process.env.Razor_key || "",
-  key_secret: process.env.Razor_Sec || "",
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 const key = async (req, res) => {
   return res.json({
-    key: process.env.Razor_key || "",
+    key: process.env.RAZORPAY_KEY_ID || "",
   });
 };
 
@@ -20,18 +19,34 @@ const CreateOrder = async (req, res) => {
   try {
     const { amount } = req.body;
 
+    const finalAmount = (amount || 499) * 100;
+    if (finalAmount < 100) {
+      return res.status(400).json({ success: false, message: "Amount must be at least 100 paise" });
+    }
+
     const options = {
-      amount: (amount || 499) * 100,
+      amount: finalAmount,
       currency: "INR",
+      receipt: "receipt_" + Math.random().toString(36).substring(2, 15)
     };
     const order = await instance.orders.create(options);
 
     res.status(200).json(order);
   } catch (err) {
-    console.error("CreateOrder Error:", err.message);
+    console.error("CreateOrder Error:", {
+      message: err?.message,
+      status: err?.statusCode || err?.status || err?.response?.status,
+      responseData: err?.response?.data,
+      description: err?.error?.description || err?.description,
+      code: err?.error?.code || err?.code
+    });
+    
+    if (err.statusCode === 401 || (err.error && err.error.code === 'BAD_REQUEST_ERROR' && err.message?.includes('auth'))) {
+      return res.status(401).json({ success: false, message: "Razorpay Authentication Failed" });
+    }
     res.status(500).json({
       success: false,
-      message: err.message,
+      message: err.message || "Order creation failed",
     });
   }
 };
@@ -40,10 +55,18 @@ const verifyPayment = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
+    if (!process.env.RAZORPAY_KEY_SECRET) {
+      return res.status(500).json({ success: false, message: "Razorpay is not configured on the server." });
+    }
+
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return res.status(400).json({ success: false, message: "Missing required payment fields" });
+    }
+
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 
     const expectedSignature = crypto
-      .createHmac("sha256", process.env.Razor_Sec || "")
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || "")
       .update(body)
       .digest("hex");
 
@@ -54,7 +77,7 @@ const verifyPayment = async (req, res) => {
       let userId = req.body.userId || req.userId || null;
 
       // Try fetching details from Razorpay API
-      if (process.env.Razor_key) {
+      if (process.env.RAZORPAY_KEY_ID) {
         try {
           const rzpPay = await instance.payments.fetch(razorpay_payment_id);
           if (rzpPay) {

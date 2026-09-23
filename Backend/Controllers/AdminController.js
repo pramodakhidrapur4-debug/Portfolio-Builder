@@ -7,8 +7,8 @@ import BusinessEnquiryModel from "../models/BusinessEnquiry.js";
 import Razorpay from "razorpay";
 
 const instance = new Razorpay({
-  key_id: process.env.Razor_key || "",
-  key_secret: process.env.Razor_Sec || "",
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 // ───────────────────────────────────────────
@@ -197,7 +197,7 @@ const getAllPayments = async (req, res) => {
         }
 
         // 3. If amount is 0 or missing, query Razorpay API
-        if ((!amount || amount === 0) && pay.razorpayPaymentId && process.env.Razor_key) {
+        if ((!amount || amount === 0) && pay.razorpayPaymentId && instance) {
           try {
             const rzpPay = await instance.payments.fetch(pay.razorpayPaymentId);
             if (rzpPay) {

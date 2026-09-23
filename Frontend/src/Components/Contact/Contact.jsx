@@ -41,6 +41,7 @@ const Contact = () => {
         },
         modal: {
           ondismiss: function () {
+            alert("Payment cancelled by user.");
             setLoading(false);
           }
         },
@@ -55,6 +56,21 @@ const Contact = () => {
       };
 
       const razor = new window.Razorpay(options);
+      
+      razor.on('payment.failed', function (response) {
+        console.error("====== RAZORPAY PAYMENT FAILED ======");
+        console.error("payment failure code:", response.error.code);
+        console.error("payment failure description:", response.error.description);
+        console.error("payment failure source:", response.error.source);
+        console.error("payment failure step:", response.error.step);
+        console.error("payment failure reason:", response.error.reason);
+        console.error("order_id:", response.error.metadata.order_id);
+        console.error("payment_id:", response.error.metadata.payment_id);
+        console.error("=====================================");
+        alert("Payment failed: " + response.error.description);
+        setLoading(false);
+      });
+
       razor.open();
     } catch (error) {
       console.error("Razorpay Order Error:", error);

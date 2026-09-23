@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
-import 'dotenv/config'
+import './env-setup.js'
+console.log("RAZORPAY_KEY_ID loaded:", !!process.env.RAZORPAY_KEY_ID);
+console.log("RAZORPAY_KEY_SECRET loaded:", !!process.env.RAZORPAY_KEY_SECRET);
 import mongoose from 'mongoose';
 import {Mongo} from './Config/Db.js';
 import userhan from './Routes/UserRoute.js'
