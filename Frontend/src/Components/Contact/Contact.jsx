@@ -1,21 +1,50 @@
 import React, { useState } from 'react';
 import './Contact.css';
-import { paymeverifi, order, paykey } from '../api';
+import { paymeverifi, order } from '../api';
 import { PageOverlayLoader, ButtonSpinner } from '../Loader/Loader';
+
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if (typeof window !== 'undefined' && typeof window.Razorpay === 'function') {
+      resolve(true);
+      return;
+    }
+    const existingScript = document.getElementById('razorpay-checkout-js');
+    if (existingScript) {
+      existingScript.onload = () => resolve(true);
+      existingScript.onerror = () => resolve(false);
+      return;
+    }
+    const script = document.createElement('script');
+    script.id = 'razorpay-checkout-js';
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState("");
 
   const paymhan = async (amount) => {
-    setLoadingMsg(`Processing Consultation Payment (₹${amount})...`);
+    setLoadingMsg("Loading Secure Payment Gateway...");
     setLoading(true);
+    
+    const isScriptLoaded = await loadRazorpayScript();
+    if (!isScriptLoaded || typeof window.Razorpay !== 'function') {
+      alert("Razorpay Checkout could not be loaded. Please check your internet connection and try again.");
+      setLoading(false);
+      return;
+    }
+
+    setLoadingMsg(`Processing Consultation Payment (₹${amount})...`);
     try {
-      const keyy = await paykey();
       const orderr = await order({ amount });
 
       const options = {
-        key: keyy.data.key,
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: orderr.data.amount,
         currency: orderr.data.currency,
         name: 'AscendVia',
