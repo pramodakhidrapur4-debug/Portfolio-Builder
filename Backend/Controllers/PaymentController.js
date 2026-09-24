@@ -4,10 +4,25 @@ import PaymentModel from "../models/Payment.js";
 import usermod from "../models/usermodel.js";
 import gogmod from "../models/GoogleLog.js";
 
-const instance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+let razorpayInstance = null;
+
+const getInstance = () => {
+  if (!razorpayInstance) {
+    console.log("RAZORPAY_KEY_ID exists:", !!process.env.RAZORPAY_KEY_ID);
+    console.log("RAZORPAY_KEY_ID prefix:", process.env.RAZORPAY_KEY_ID?.substring(0, 8));
+    console.log("RAZORPAY_KEY_SECRET exists:", !!process.env.RAZORPAY_KEY_SECRET);
+
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+      console.warn("Razorpay credentials are missing at runtime!");
+    }
+
+    razorpayInstance = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+  }
+  return razorpayInstance;
+};
 
 const key = async (req, res) => {
   return res.json({
@@ -29,7 +44,7 @@ const CreateOrder = async (req, res) => {
       currency: "INR",
       receipt: "receipt_" + Math.random().toString(36).substring(2, 15)
     };
-    const order = await instance.orders.create(options);
+    const order = await getInstance().orders.create(options);
 
     res.status(200).json(order);
   } catch (err) {
@@ -79,7 +94,7 @@ const verifyPayment = async (req, res) => {
       // Try fetching details from Razorpay API
       if (process.env.RAZORPAY_KEY_ID) {
         try {
-          const rzpPay = await instance.payments.fetch(razorpay_payment_id);
+          const rzpPay = await getInstance().payments.fetch(razorpay_payment_id);
           if (rzpPay) {
             if (!amount && rzpPay.amount) amount = rzpPay.amount / 100;
             if (!userEmail && rzpPay.email) userEmail = rzpPay.email;
